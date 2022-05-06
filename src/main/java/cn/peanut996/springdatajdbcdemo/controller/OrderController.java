@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.peanut996.springdatajdbcdemo.domain.Order;
+import cn.peanut996.springdatajdbcdemo.dto.CreateOrderDTO;
 import cn.peanut996.springdatajdbcdemo.service.OrderService;
 
 @RestController
@@ -21,8 +21,8 @@ public class OrderController {
   }
 
   @PostMapping
-  public void create(@RequestBody Order order) {
-    orderService.create(order);
+  public void create(@RequestBody CreateOrderDTO createOrderDTO) {
+    orderService.create(createOrderDTO);
   }
 
 }
