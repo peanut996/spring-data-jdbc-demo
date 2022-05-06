@@ -7,3 +7,7 @@ spring:
   flyway:
     enable: true
     baseline-on-migrate: true
+
+logging:
+  level:
+    org.springframework.jdbc.core: TRACE

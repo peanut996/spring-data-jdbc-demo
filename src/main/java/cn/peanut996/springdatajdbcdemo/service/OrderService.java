@@ -1,6 +1,7 @@
 package cn.peanut996.springdatajdbcdemo.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,24 +25,28 @@ public class OrderService {
   }
 
   public Order create(CreateOrderDTO createOrderDTO) {
+    String orderNo = UUID.randomUUID().toString();
     Order order = Order.builder()
         .customerId(createOrderDTO.getCustomerId())
         .price(createOrderDTO.getPrice())
+        .orderNo(orderNo)
         .build();
 
     OrderCustomer orderCustomer = OrderCustomer.builder()
+        .orderNo(orderNo)
         .customerAge(createOrderDTO.getCustomer().getCustomerAge())
         .customerName(createOrderDTO.getCustomer().getCustomerName())
         .build();
 
-    List<OrderProduct> orderProducts = createOrderDTO.getProducts()
+    Set<OrderProduct> orderProducts = createOrderDTO.getProducts()
         .stream()
         .map(product -> {
           return OrderProduct.builder()
+              .orderNo(orderNo)
               .productId(product.getProductId())
               .productPrice(product.getProductPrice())
               .build();
-        }).collect(Collectors.toList());
+        }).collect(Collectors.toSet());
 
     order.setCustomer(orderCustomer);
     order.setProduct(orderProducts);
